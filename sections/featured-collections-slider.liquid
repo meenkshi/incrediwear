@@ -43,16 +43,14 @@
   </div>
 </featured-collection-slider>
 </section>
-
-{% javascript %}
-
+<script type="lazyload2">
 class FeaturedCollectionSlider extends HTMLElement {
     constructor() {
         super();
     }
 
     connectedCallback() {
-        document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
             let flktyElem = document.querySelector('.ProductList--carousel');
 
             if (flktyElem) {
@@ -62,10 +60,8 @@ class FeaturedCollectionSlider extends HTMLElement {
         });
     }
 }
-
 customElements.define('featured-collection-slider', FeaturedCollectionSlider);
-
-{% endjavascript %}
+</script>
 
 <style>
   .section-collection-carousel header{

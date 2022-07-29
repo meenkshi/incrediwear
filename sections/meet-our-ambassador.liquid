@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ 'meet-our-ambassador.css' | asset_url }}" type="text/css">
+<link rel="stylesheet" href="{{ 'meet-our-ambassador.css' | asset_url }}">
 
 
 <style>
@@ -87,15 +87,14 @@
 </section>
 
 
-{% javascript %}
 
+<script type="lazyload2">
 class AmbassadorSection extends HTMLElement {
     constructor() {
         super();
     }
-
     connectedCallback() {
-        document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
             let flktyElem = document.querySelector('.ambassador__wrapper');
 
             if (flktyElem) {
@@ -105,10 +104,8 @@ class AmbassadorSection extends HTMLElement {
         });
     }
 }
-
 customElements.define('ambassador-section', AmbassadorSection);
-
-{% endjavascript %}
+</script>
 
 
 {% schema %}

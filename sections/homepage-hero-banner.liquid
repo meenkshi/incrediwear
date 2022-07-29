@@ -55,7 +55,7 @@
 
 		{% if desktopImage %}
       <image
-        srcset="
+        data-srcset="
           {{ desktopImage | img_url: '600x' }} 600w,
           {{ desktopImage | img_url: '720x' }} 720w,
           {{ desktopImage | img_url: '1000x' }} 1000w,
@@ -63,10 +63,11 @@
           {{ desktopImage | img_url: '1500x' }} 1500w,
           {{ desktopImage | img_url: '2000x' }} 2000w
         "
-        src="{{ desktopImage | img_url: '2000x' }}"
+        data-src="{{ desktopImage | img_url: '2000x' }}"
+        src="{{ desktopImage | img_url: '300x' }}"
         src-placeholder="{{  desktopImage | img_url: '50x' }}"
         alt="{{ desktopImage.alt }}"
-        class="desktop-image"
+        class="desktop-image lazy2"
       >
     {% else %}
       {{ 'lifestyle-1' | placeholder_svg_tag: 'svg-placeholder desktop' }}
@@ -74,17 +75,18 @@
 
      {% if mobileImage != blank %}
     <image
-        srcset="
+        data-srcset="
           {{ mobileImage | img_url: '600x' }} 600w,
           {{ mobileImage | img_url: '720x' }} 720w,
           {{ mobileImage | img_url: '1000x' }} 1000w,
           {{ mobileImage | img_url: '1250x' }} 1250w,
           {{ mobileImage | img_url: '1500x' }} 1500w
         "
-        src="{{ mobileImage | img_url: '1500x' }}"
+        data-src="{{ mobileImage | img_url: '1500x' }}"
+        src="{{ mobileImage | img_url: '300x' }}"
         src-placeholder="{{  mobileImage | img_url: '50x' }}"
         alt="{{ mobileImage.alt }}"
-        class="mobile-image"
+        class="mobile-image lazy2"
       >
       {% else %}
       {{ 'lifestyle-1' | placeholder_svg_tag: 'svg-placeholder mobile' }}
@@ -100,14 +102,14 @@
 
 {{ 'flickity.min.js' | asset_url | script_tag }}
 
-{% javascript %}
+<script type="lazyload2">
 class HomeHeroBanner extends HTMLElement {
   constructor() {
       super();
   }
 
   connectedCallback() {
-    document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function() {
       // Remove dividers from Flickity when screen is under 600px
       let viewportWidth = window.innerWidth;
       let dividers = document.querySelectorAll('.divider-wrapper');
@@ -142,8 +144,7 @@ class HomeHeroBanner extends HTMLElement {
 }
 
 customElements.define('home-hero-banner', HomeHeroBanner);
-
-{% endjavascript %}
+</script>
 
 <style>
 .homepage-hero-banner {

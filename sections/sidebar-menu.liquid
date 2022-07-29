@@ -165,9 +165,7 @@
   {% endfor %}
 </sidebar-menu>
 
-
-
-{% javascript %}
+<script>
   class SideBarMenu extends HTMLElement {
     constructor() {
       super();
@@ -185,7 +183,6 @@
             document.querySelector(".Header__Logo--sidebar").style.opacity = "0";
             document.querySelector("#Drawer__Content-" + e.target.id).style.marginTop = "-37px";
             document.querySelector("#Drawer__Content-" + e.target.id).style.zIndex = "100";
-
          }
         }
 
@@ -197,17 +194,12 @@
             document.querySelector('#Drawer__Content-0').style.display = "flex";
             document.querySelector(".Header__Logo--sidebar").style.visibility = "visible";
             document.querySelector(".Header__Logo--sidebar").style.opacity = "1";
-   
-
         }
-        
       })
   }
 }
-
-  
 customElements.define('sidebar-menu', SideBarMenu);
-{% endjavascript %}
+</script>
 
 {% schema %}
 {

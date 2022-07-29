@@ -5243,7 +5243,7 @@ body:not(.features--show-image-zooming) .Image--lazyLoaded.Image--zoomOut {
   margin-bottom: 0;
 }
 
-@media screen and (min-width: 1008px):not(.yotpowidget) {
+@media screen and (min-width: 1008px) {
   .Rte img,
   .Rte .VideoWrapper,
   .Rte .Form {
@@ -8687,7 +8687,6 @@ body:not(.features--show-image-zooming) .Image--lazyLoaded.Image--zoomOut {
   }
 }
 
-}
 /**
  * ----------------------------------------------------------------------------
  * Product gallery
@@ -11033,10 +11032,6 @@ body:not(.features--show-image-zooming) .Image--lazyLoaded.Image--zoomOut {
   }
 }
 
-
-
-/ CARD GRID /
-
 :root{
   --spacing-s: 8px;
   --spacing-m: 16px;
@@ -11356,3 +11351,14 @@ footer [type=email]::placeholder {
     }
   }
   /*  === TMB Dev New Add to Cart Flow Product Page in Mobile Css End (01/07/2022) === */
+@media(min-width:1200px){
+ambassador-section .flickity-viewport {
+    height: 563px !important;
+}
+}  
+
+@media(max-width:767px){
+ambassador-section .flickity-viewport {
+   height: 396.5px !important;
+}
+}

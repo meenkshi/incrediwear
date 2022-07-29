@@ -1,13 +1,24 @@
 <!doctype html>
-
 <html class="no-js" lang="{{ shop.locale }}">
   <head>
-{% include 'kiwiSizing' %}{% render 'pagefly-head' %}
-<!-- Google Optimize -->
-    <script src="https://www.googleoptimize.com/optimize.js?id=OPT-M98WQBV"></script>
-  <!-- End Google Optimize --> 
+
+    {% if template contains "index" %}
+    	{% render "index-css" %}
+    {% elsif template contains "collection" %}
+    	{% render "collection-css" %}
+    {% elsif template contains "product" %}
+    	{% render "product-css" %}
+    {% else %}
+    	{% render "critical-css" %}
+    {% endif %}
+
+    {% include 'kiwiSizing' %}
+    {% render 'pagefly-head' %}
+    <!-- Google Optimize -->
+    <script type="lazyload2" data-src="https://www.googleoptimize.com/optimize.js?id=OPT-M98WQBV"></script>
+    <!-- End Google Optimize --> 
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script type="lazyload2">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -18,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="{{ settings.accent_color }}">
-<script type="text/javascript" src="https://pop6serve.com/popsixle.php?t=4028015887980d9fccad518b54a72bbaf2abaa78ec960572e0cc69288c2e14d5"></script>
+    <script type="lazyload2" data-src="https://pop6serve.com/popsixle.php?t=4028015887980d9fccad518b54a72bbaf2abaa78ec960572e0cc69288c2e14d5"></script>
     <title>
       {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
     </title>
@@ -36,17 +47,23 @@
     {% render 'social-meta-tags' %}
     {% render 'css-variables' %}
 
-    {{ content_for_header }}{% include 'cookie-body' %}
-    {{ 'bold-brain-widget.css' | asset_url | stylesheet_tag }}
-
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+	{{ content_for_header }}
+    {%- else -%}
+	{% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+	{{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload2" ' | replace: " src=", " data-src=" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('wnw_load', asyncLoad, false);" | replace: "DOMContentLoaded", "DOMContentLoaded2" }}
+	<script>var trekkie=[];trekkie.integrations=!0;</script>
+    {%- endif -%}
+    {% include 'cookie-body' %}
+    <link data-href="{{ 'bold-brain-widget.css' | asset_url }}" rel="stylesheet" />
     {%- render 'bold-common' -%}
 
     <!-- Fancybox CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
-    {{ 'app.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" data-href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+    <link data-href="{{ 'app.css' | asset_url }}" rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'custom_styles.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'theme.css' | asset_url }}">
+    <link rel="stylesheet" data-href="{{ 'custom_styles.css' | asset_url }}">
 
     <script>
       // This allows to expose several variables to the global scope, to be used in scripts
@@ -102,21 +119,21 @@
       }());
     </script>
 
-    <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
-
+    <script type="lazyload2" data-src="{{ 'lazysizes.min.js' | asset_url }}"></script>
+    <script type="lazyload2" data-src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=LpBCTy"></script>
     {%- if template == 'customers/addresses' -%}
       <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
       <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
     {%- endif -%}
 
-    <script src="https://cdn.polyfill.io/v3/polyfill.min.js?unknown=polyfill&features=fetch,Element.prototype.closest,Element.prototype.remove,Element.prototype.classList,Array.prototype.includes,Array.prototype.fill,Object.assign,CustomEvent,IntersectionObserver,IntersectionObserverEntry,URL" defer></script>
+    <script type="lazyload2" data-src="https://cdn.polyfill.io/v3/polyfill.min.js?unknown=polyfill&features=fetch,Element.prototype.closest,Element.prototype.remove,Element.prototype.classList,Array.prototype.includes,Array.prototype.fill,Object.assign,CustomEvent,IntersectionObserver,IntersectionObserverEntry,URL" defer></script>
     <script src="{{ 'libs.min.js' | asset_url }}" defer></script>
-    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script type="lazyload2" data-src="{{ 'theme.js' | asset_url }}"></script>
 
     <!-- Fancybox JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js" defer></script>
+    <script type="lazyload2" data-src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
-    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    <script type="lazyload2" data-src="{{ 'custom.js' | asset_url }}"></script>
 
     <script>
       (function () {
@@ -139,13 +156,13 @@
     </script>
 
     {% render 'microdata-schema' %}
-  <link id="opinew-font-awesome" href="https://cdn.opinew.com/styles/opw-icons/style.css" rel="stylesheet">
+  <link id="opinew-font-awesome" data-href="https://cdn.opinew.com/styles/opw-icons/style.css" rel="stylesheet">
     <style id='opinew_product_plugin_css'>{{shop.metafields.opinew['opinew_product_plugin_css']}}</style>
 
 <div id='opinew_config_container' style='display:none;' data-opwconfig='{{shop.metafields.opinew['opinew_config']}}'></div>
 <!-- Programmatic global invocation -->
 <!-- Global site tag (gtag.js) - Google Marketing Platform -->
-<script>
+<script type="lazyload2">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -156,7 +173,7 @@
 <!-- End of global snippet: Please do not remove -->
 
 <!-- Hotjar Tracking Code for https://incrediwear.com/ -->
-<script>
+<script type="lazyload2">
     (function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:2721752,hjsv:6};
@@ -169,7 +186,7 @@
 
 
 <!-- Programmatic retargeting snippet -->
-<script>
+<script type="lazyload2">
   gtag('event', 'conversion', {
     'allow_custom_scripts': true,
     'u1': '{% if template contains 'collection' %}Category{% elsif template contains 'product' %}Product{% elsif template contains 'cart' %}Cart{% elsif template contains 'search' %}Search{% elsif template contains 'index' %}Home{% endif %}',
@@ -187,7 +204,7 @@
 </noscript>
 <!-- End of Programmatic retargeting snippet: Please do not remove -->
 <!-- Snap Pixel Code -->
-<script type='text/javascript'>
+<script type='lazyload2'>
 (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
 {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
 a.queue=[];var s='script';r=t.createElement(s);r.async=!0;
@@ -201,11 +218,8 @@ snaptr('track', 'PAGE_VIEW');
 </script>
 <!-- End Snap Pixel Code -->
 {% include 'pagefly-header' %}
-
-  {% render 'shogun-head' %}
-
-
-    <script type="application/ld+json">
+{% render 'shogun-head' %}
+<script type="application/ld+json">
 {
 "@context" : "http://schema.org",
 "@type" : "Localbusiness",
@@ -245,9 +259,7 @@ snaptr('track', 'PAGE_VIEW');
 }
 </script>
 
-
-
-    <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "LocalBusiness",
@@ -297,62 +309,41 @@ snaptr('track', 'PAGE_VIEW');
 }
 </script>
 
-
-
-<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"137002193"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+<script type="lazyload2">(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"137002193"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 {% include 'bss-store-locator-popup' %}
-                {% include 'bss-store-locator-header' %}
-  <script>
-      var ignore_csapp_cart_reload = true;
-</script>
-
-    {% include 'cscode_discount' %}
+{% include 'bss-store-locator-header' %}
+<script>var ignore_csapp_cart_reload = true;</script>
+{% include 'cscode_discount' %}
 {% render "geo" %}{% include 'hulk_po_vd.liquid' %}
 <!-- Start of LittledataLayer -->
 {% include 'LittledataLayer' %}
 <!-- End of LittledataLayer -->
-
 <!-- Reddit Pixel -->
-
-<script>
-
+<script type="lazyload2">
 !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','t2_kh2kytzq', {"optOut":false,"useDecimalCurrencyValues":true,"aaid":"","email":"","externalId":"","idfa":""});rdt('track', 'PageVisit');
-
 </script>
-
 <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
-
 <!-- End Reddit Pixel -->    
-    
-    
 </head>
-
   {%- capture classes -%}features--heading-{{ settings.heading_size }}{%- endcapture -%}
-
   {%- if settings.uppercase_heading -%}
     {%- assign classes = classes | append: ' features--heading-uppercase' -%}
   {%- endif -%}
-
   {%- if settings.product_show_price_on_hover -%}
     {%- assign classes = classes | append: ' features--show-price-on-hover' -%}
   {%- endif -%}
-
   {%- if settings.show_page_transition -%}
     {%- assign classes = classes | append: ' features--show-page-transition' -%}
   {%- endif -%}
-
   {%- if settings.show_button_transition -%}
     {%- assign classes = classes | append: ' features--show-button-transition' -%}
   {%- endif -%}
-
   {%- if settings.show_image_zooming -%}
     {%- assign classes = classes | append: ' features--show-image-zooming' -%}
   {%- endif -%}
-
   {%- if settings.show_element_staggering -%}
     {%- assign classes = classes | append: ' features--show-element-staggering' -%}
   {%- endif -%}
-
   <body class="prestige--v4 {{ classes }} {% if template.directory %}template-{{ template.directory | handle }}{% endif %} template-{{ template.name | handle }}">
     <a class="PageSkipLink u-visually-hidden" href="#main">{{ 'header.navigation.skip_to_content' | t }}</a>
     <span class="LoadingBar"></span>
@@ -382,9 +373,9 @@ snaptr('track', 'PAGE_VIEW');
 
 
 
-    <script src="https://cdn.attn.tv/incrediwear/dtag.js"></script>
+    <script type="lazyload2" data-src="https://cdn.attn.tv/incrediwear/dtag.js"></script>
 
-    <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script> <script> var klaviyo = klaviyo || [];
+    <script type="lazyload2" data-src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script> <script type="lazyload2"> var klaviyo = klaviyo || [];
     klaviyo.init({
       account: "LpBCTy",
       platform: "shopify" });
@@ -414,7 +405,7 @@ snaptr('track', 'PAGE_VIEW');
      success_background_color: "#d3efcd",
      success_text_color: "#1B9500" } }); </script>
 
-    <script type="text/javascript">
+    <script type="lazyload2">
 usi_installed = 0; USI_installCode = function() { if (usi_installed == 0) { usi_installed = 1; var USI_headID = document.getElementsByTagName("head")[0]; var USI_installID = document.createElement('script'); USI_installID.type = 'text/javascript'; USI_installID.src = 'https://www.upsellit.com/active/incrediwear.jsp'; USI_headID.appendChild(USI_installID); } }; if (typeof(document.readyState) != "undefined" && document.readyState === "complete") { USI_installCode(); } else if (window.addEventListener){ window.addEventListener('load', USI_installCode, true); } else if (window.attachEvent) { window.attachEvent('onload', USI_installCode); } else { USI_installCode(); } setTimeout("USI_installCode()", 10000);
 </script>
 
@@ -425,7 +416,7 @@ usi_installed = 0; USI_installCode = function() { if (usi_installed == 0) { usi_
 
 
 
-<script type="text/javascript">
+<script type="lazyload2">
     var AddShoppersWidgetOptions = { 'loadCss': false };
     (!function(){
         var t=document.createElement("script");
@@ -517,7 +508,7 @@ usi_installed = 0; USI_installCode = function() { if (usi_installed == 0) { usi_
       {% endif %}{% endcomment %}
     </div>
 
-<script>(function(){var s = document.createElement("script");s.setAttribute("data-account","e5tRXYCoec");s.setAttribute("src","https://cdn.userway.org/widget.js");document.body.appendChild(s);})();</script>
+<script type="lazyload2">(function(){var s = document.createElement("script");s.setAttribute("data-account","e5tRXYCoec");s.setAttribute("src","https://cdn.userway.org/widget.js");document.body.appendChild(s);})();</script>
 
 
  <!-- Mutesix Google Ads Add to cart tracking code -->
@@ -536,21 +527,21 @@ document.addEventListener('click', function (event) {
 {% render 'smart-cart-template' %}
 
 {% render 'spurit_po2_theme_snippet' %}
-<script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
-<!--Gorgias Chat Widget Start--><script id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=11211"></script>
-<script id="gorgias-chat-shopify-install">!function(_){_.SHOPIFY_PERMANENT_DOMAIN="{{shop.permanent_domain}}",_.SHOPIFY_CUSTOMER_ID="{{customer.id}}",_.SHOPIFY_CUSTOMER_EMAIL="{{customer.email}}"}(window||{});</script><!--Gorgias Chat Widget End-->
+<script type="lazyload2" data-src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
+<!--Gorgias Chat Widget Start--><script type="lazyload2" id="gorgias-chat-widget-install-v2" data-src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=11211"></script>
+<script type="lazyload2" id="gorgias-chat-shopify-install">!function(_){_.SHOPIFY_PERMANENT_DOMAIN="{{shop.permanent_domain}}",_.SHOPIFY_CUSTOMER_ID="{{customer.id}}",_.SHOPIFY_CUSTOMER_EMAIL="{{customer.email}}"}(window||{});</script><!--Gorgias Chat Widget End-->
 
 <!-- microsoft ads tracking script -->
-<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"148016028", tm:"shpfy_ui"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+<script type="lazyload2">(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"148016028", tm:"shpfy_ui"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 <!-- End microsoft ads tracking script -->
     
 
     <!-- Yotpo JavaScript > Layout > theme.liquid -->
-    <script type="text/javascript" defer>(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/OAZ7PHjHuB4AhkIPenqwjQsOdnL4PDgzf6XgMo1R/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
+    <script type="lazyload2">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/OAZ7PHjHuB4AhkIPenqwjQsOdnL4PDgzf6XgMo1R/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
     <!-- End of Yotpo JavaScript -->
     
     
-      <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/cpikxINfEwboEH0rx9up1A" async></script>
+      <script type="lazyload2" data-src="https://cdn-widgetsrepository.yotpo.com/v1/loader/cpikxINfEwboEH0rx9up1A"></script>
     
   {% render 'rebuy-smartcart-extensions' %}
  {% if page.title == 'FAQ' %}
@@ -596,6 +587,29 @@ document.addEventListener('click', function (event) {
       }
     </style>
  {% endif %}
+<script type="lazyload2">
+		setTimeout(function() {
+            var lazyVideos = document.querySelectorAll("video");
+            lazyVideos.forEach(function(lazyVid) {
+              lazyVid.load();
+              lazyVid.muted= true;
+              lazyVid.play();
+            });
+		});
+</script>
+<script>
+	var site_nav_link_burger = true;
+	jQuery(document).ready(function() {
+		jQuery(".Header__Icon").click(function() {
+            console.log(1);
+			if(site_nav_link_burger) {
+				event.preventDefault();
+				site_nav_link_burger = false;
+			}
+		});
+	})
+</script>    
+{{ 'wnw-optimization.js' | asset_url | script_tag }}
 </body>
 </html>
 

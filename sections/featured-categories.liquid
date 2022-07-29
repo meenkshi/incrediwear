@@ -7,11 +7,11 @@
         <a href="{{block.settings.collection.url}}" class="group">
           <div class="w-full overflow-hidden">
             {% if block.settings.image %}
-            <img src="{{ block.settings.image | img_url: '700x700', scale: 2 }}" alt="{{ block.settings.image.alt }}" class="mx-auto w-[350px] h-[350px] object-center object-cover group-hover:opacity-75">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.image | img_url: '700x700', scale: 2 }}" alt="{{ block.settings.image.alt }}" class="mx-auto w-[350px] h-[350px] object-center object-cover group-hover:opacity-75 lazy2">
             {% elsif block.settings.collection.image %}
-            <img src="{{ block.settings.collection.image | img_url: '700x700', scale: 2 }}" alt="{{ block.settings.collection.image.alt }}" class="mx-auto w-[350px] h-[350px] object-center object-cover group-hover:opacity-75">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.collection.image | img_url: '700x700', scale: 2 }}" alt="{{ block.settings.collection.image.alt }}" class="mx-auto w-[350px] h-[350px] object-center object-cover group-hover:opacity-75 lazy2">
             {% else %}
-            <img src="https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-01.jpg" alt="Person using a pen to cross a task off a productivity paper card." class="mx-auto w-[350px] h-[350px] object-center object-cover group-hover:opacity-75">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-01.jpg" alt="Person using a pen to cross a task off a productivity paper card." class="mx-auto w-[350px] h-[350px] object-center object-cover group-hover:opacity-75 lazy2">
             {% endif %}
           </div>
           <div class="mt-4 mx-auto max-w-[350px] justify-center md:justify-start flex items-center text-2xl md:text-[32px] italic font-semibold text-gray-900">

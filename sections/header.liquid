@@ -225,8 +225,8 @@ HEADER CONTENT
                                   {%- for sub_sub_link in sub_link.links -%}
                                     <li class="Linklist__Item">
                                       <a href="{{ sub_sub_link.url }}" class="Link Link--secondary">{% if sub_sub_link.object.metafields.my_fields.meganav_icon %}
-                                      <img data-srcset="
-                                      {{ sub_sub_link.object.metafields.my_fields.meganav_icon | img_url: 'master' }} 600w" src="{{ sub_sub_link.object.metafields.my_fields.meganav_icon | img_url: 'master' }}" data-src="{{ sub_sub_link.object.metafields.my_fields.meganav_icon | img_url: '1800x' }}"
+                                      <img class="lazy2" data-srcset="
+                                      {{ sub_sub_link.object.metafields.my_fields.meganav_icon | img_url: 'master' }} 600w" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ sub_sub_link.object.metafields.my_fields.meganav_icon | img_url: '1800x' }}"
                                       alt="{{ sub_sub_link.object.metafields.my_fields.meganav_icon.alt | escape  }}">
                                       {% endif %}<span>{{ sub_sub_link.title | escape }}</span></a>
                                     </li>
@@ -520,8 +520,7 @@ HEADER CONTENT
   document.documentElement.style.setProperty('--header-height', document.getElementById('shopify-section-header').offsetHeight + 'px');
 </script>
 
-
-{% javascript %}
+<script type="lazyload2">
   class MegaMenu extends HTMLElement {
     constructor() {
       super();
@@ -531,7 +530,6 @@ HEADER CONTENT
      this.addEventListener('mouseover', function(e){
        var targetName = e.target.id;
        var indexValue = e.target.getAttribute("meganav_heading_index");
-       
 
         if (targetName) {
            this.querySelectorAll("[meganav_index]").forEach(element => {
@@ -539,18 +537,14 @@ HEADER CONTENT
                   element.style.display = "none";
                 } else {
                   element.style.display = "block";
-
                 }
             });
         }
       })
   }
 }
-
-
-  
-  customElements.define('mega-menu', MegaMenu);
-{% endjavascript %}
+customElements.define('mega-menu', MegaMenu);
+</script>
 {% schema %}
 {
   "name": "Header",
