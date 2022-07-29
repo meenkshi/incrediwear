@@ -1,0 +1,245 @@
+{% include 'spurit_po2_section_snippet', product: null, products: collections[section.settings.collection].products %}
+{%- capture flickity_options -%}
+{
+  "prevNextButtons": true,
+  "pageDots": false,
+  "wrapAround": false,
+  "contain": true,
+  "cellAlign": "center",
+  "watchCSS": true,
+  "dragThreshold": 8,
+  "groupCells": true
+}
+{%- endcapture -%}
+
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section class="Section Section--spacingNormal section-collection-carousel" data-section-id="{{ section.id }}">
+  <featured-collection-slider>
+  <div class="Container">
+    <header class="SectionHeader">
+      {%- if section.settings.title != blank -%}
+        <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank -%}
+      <div class="link__wrapper">
+        <a href="{{ collection.url }}" class="Link">{{ section.settings.button_text | escape }}</a>
+      </div>
+      {%- endif -%}
+    </header>
+
+    <div class="ProductListWrapper">
+      {%- if collection != empty -%}
+        <div class="ProductList ProductList--carousel Carousel" data-flickity-config='{{ flickity_options }}'>
+          {%- for product in collection.products -%}
+            <div class="Carousel__Cell">
+              {%- render 'product-item', product: product, show_product_info: section.settings.show_product_info, show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, show_labels: true -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</featured-collection-slider>
+</section>
+
+{% javascript %}
+
+class FeaturedCollectionSlider extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        document.addEventListener("DOMContentLoaded", function () {
+            let flktyElem = document.querySelector('.ProductList--carousel');
+
+            if (flktyElem) {
+                let flktySettings = Object.assign(JSON.parse(flktyElem.getAttribute('data-flickity-config')));
+                var flkty = new Flickity('.ProductList--carousel', flktySettings);
+            }
+        });
+    }
+}
+
+customElements.define('featured-collection-slider', FeaturedCollectionSlider);
+
+{% endjavascript %}
+
+<style>
+  .section-collection-carousel header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 calc(var(--horizontal-spacing-four-products-per-row) / 2 +  90px);
+    margin-bottom: 32px !important;
+  }
+
+  .section-collection-carousel .Link{
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: capitalize;
+  }
+  .section-collection-carousel .link__wrapper {
+    transition: all 0.3s ease-in-out;
+  }
+  .section-collection-carousel .link__wrapper:hover {
+    border-bottom:2.5px solid #ff6b09;
+  }
+  .section-collection-carousel .Link:hover {
+    color:#ff6b09;
+  }
+  .section-collection-carousel .ProductItem__Info {
+    display:flex;
+    flex-direction: column;
+    margin-top: 8px;
+  }
+  .section-collection-carousel .ProductItem__Info .ProductItem__Title.Heading{
+    order:1;
+    padding-bottom:0;
+    margin-bottom: 0;
+    margin-top:10px;
+  }
+  .section-collection-carousel .ProductItem__Info div{
+    order:2;
+    height: 34px;
+  }
+
+  .section-collection-carousel .Link:after{
+    content: '';
+    position: relative;
+    display: block;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    width: 5px;
+    height: 5px;
+    transform: rotate(45deg);
+    margin-left: 7px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .section-collection-carousel .Link:hover:after {
+    border-top: 1px solid #ff6b09;
+    border-right: 1px solid #ff6b09;
+    margin-left: 9px;
+  }
+
+  .section-collection-carousel .flickity-prev-next-button{
+    box-shadow: none;
+    background: none;
+    color: #AEADAD;
+    transform: none;
+    transition: none;
+    overflow: visible;
+  }
+  .section-collection-carousel .flickity-prev-next-button:after{
+    content: '';
+    display: block;
+    border-top: 2px solid #AEADAD;
+    border-right: 2px solid #AEADAD;
+    width: 25px;
+    height: 25px;
+    transform: rotate(45deg)
+  }
+
+  .section-collection-carousel .flickity-prev-next-button.previous:after{
+    transform: rotate(-135deg)
+  }
+
+  .section-collection-carousel .flickity-prev-next-button svg{
+    display: none;
+  }
+
+  .shopify-section--bordered .ProductItem__Title.Heading a:hover {
+    color: #ff6b09;
+  }
+
+  @media screen and (max-width: 1007px){
+    .section-collection-carousel .Carousel__Cell:first-child{
+      margin-left: 10px !important;
+    }
+
+    .section-collection-carousel .ProductListWrapper {
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      max-width: 100vw;
+      position: relative;
+      right: 50%;
+      width: 100vw;
+    }
+
+    .section-collection-carousel  header{
+      margin: 0;
+      margin-bottom: 24px;
+    }
+
+    .section-collection-carousel  .SectionHeader__Heading {
+      font-size: 18px !important;
+      padding-bottom: 0;
+    }
+
+    .section-collection-carousel  .Link {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Featured carousel",
+  "class": "shopify-section--bordered",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Sub-heading",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop all"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_info",
+      "label": "Show product info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "label": "Show color swatch",
+      "info": "Some colors appear white? [Learn more](http://support.maestrooo.com/article/80-product-uploading-custom-color-for-color-swatch).",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "category": "Collection",
+      "name": "Featured collections carousel"
+    }
+  ]
+}
+{% endschema %}

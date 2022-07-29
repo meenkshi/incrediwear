@@ -1,0 +1,283 @@
+body div#popups-container {
+  display: none;
+}
+body div#popups-container div.popup-container {
+  display: none;
+}
+body #outside-the-usa,
+body #outside-the-usa--clone {
+  max-width: 600px;
+  position: relative;
+}
+body #outside-the-usa .background-image,
+body #outside-the-usa--clone .background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+body #outside-the-usa .background-image img, body #outside-the-usa .background-image svg,
+body #outside-the-usa--clone .background-image img,
+body #outside-the-usa--clone .background-image svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+body #outside-the-usa .inner-container,
+body #outside-the-usa--clone .inner-container {
+  text-align: center;
+  color: #FFF;
+  padding: 1em;
+  z-index: 2;
+}
+body #outside-the-usa .inner-container .logo,
+body #outside-the-usa--clone .inner-container .logo {
+  text-align: center;
+  margin: 0 auto 2em;
+  max-width: 280px;
+}
+body #outside-the-usa .inner-container .logo img, body #outside-the-usa .inner-container .logo svg,
+body #outside-the-usa--clone .inner-container .logo img,
+body #outside-the-usa--clone .inner-container .logo svg {
+  width: 100%;
+}
+body #outside-the-usa .inner-container .shopping-notice,
+body #outside-the-usa--clone .inner-container .shopping-notice {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+}
+body #outside-the-usa .inner-container .checkout,
+body #outside-the-usa--clone .inner-container .checkout {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+body #outside-the-usa .inner-container .find-incrediwear-page,
+body #outside-the-usa--clone .inner-container .find-incrediwear-page {
+  font-family: "Montserrat", sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+}
+body #outside-the-usa .inner-container .a-closer-option,
+body #outside-the-usa--clone .inner-container .a-closer-option {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+body #outside-the-usa .inner-container .button.go,
+body #outside-the-usa--clone .inner-container .button.go {
+  background-color: #C35312;
+  color: #FFF;
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+  padding: 0.75em 1.75em;
+  margin: 1em 0;
+  display: inline-block;
+}
+@media screen and (min-width: 768px) {
+  body #outside-the-usa,
+body #outside-the-usa--clone {
+    height: 600px;
+  }
+}
+
+/*# sourceMappingURL=custom_styles.css.map */
+/* 18-05-2022 */
+p.AnnouncementBar__Content a {
+    font-size: 15px;
+    font-weight: bold;
+}
+.Header__MainNav li.HorizontalList__Item:nth-child(2) a {
+    color: red;
+}
+.SidebarMenu .SidebarMenu__Nav.SidebarMenu__Nav--secondary ul.Linklist div:nth-child(1) a{color:red;}
+.homepage-hero-banner .feature-slider .content{
+ padding-top:5px !important;
+ padding-bottom:5px !important;
+  height:60px !important;
+}
+
+
+.Header:not(.Header--sidebar) .Header__Wrapper {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.grecaptcha-badge {
+    pointer-events: none !important;
+    /*display: none !important;*/
+}
+.fomo-notification.fomo-notification-position-bottom-right {
+    right: auto !important;
+    left: 40% !important;
+}
+
+.homepage-hero-banner .banner .floating-inner-wrapper {
+  height:auto !important;
+  padding: 110px 80px 0px 80px !important;
+}
+.homepage-hero-banner .banner .text-content .subtitle {
+margin-left: -10px !important;
+margin-bottom: 0px !important;
+}
+.homepage-hero-banner .banner .text-content .subtitle ul{
+ display:inline-block;
+ text-align:left;
+ list-style:none; 
+}
+.homepage-hero-banner .banner .text-content .subtitle ul li:before {
+    content: "✓";
+    margin-right: 8px;
+}
+
+.custom-bg-white{
+ padding-top:0rem !important;
+}
+
+section.homepage-hero-banner {
+    clip-path: polygon(0 0, 100% 0%, 100% 80%, 0 100%);
+    margin-bottom:0px !important;
+}
+
+.custom_menu_mega .MegaMenu__Title { margin-bottom:0 !important;}
+.custom_menu_mega .Linklist__Item{margin-bottom:0 !important;}
+
+.homePage_yoto .carousel-display-wrapper #carousel-top-panel .headline {
+    color: #000!important;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+}
+.homePage_yoto .carousel-display-wrapper #carousel-top-panel{
+border-bottom:none !important;
+}
+
+.homePage_yoto .carousel-reviews-bottom-line {
+    display: none;
+}
+.homePage_yoto .standard-layout.single-carousel.review{
+ margin-left:2px;
+}
+.homePage_yoto .carousel-display-wrapper .scroller {
+   overflow-y: hidden !important;
+}
+
+
+.homePage_yoto .carousel-display-wrapper .yotpo-carousel .y-slider-container .single-carousel .product-image-container .y-carousel-product-image{
+  display:none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+.yotpo-reviews-carousel .carousel-display-wrapper .yotpo-carousel .small-version .right-side{width:100% !important;}
+.homePage_yoto .carousel-display-wrapper .yotpo-carousel .single-carousel .carousel-review-date{display:none !important;}
+.homePage_yoto .carousel-display-wrapper .yotpo-carousel .carousel-review-title {
+    color: #000!important;
+    font-size: 16px!important;
+    font-weight: bold !important;
+    letter-spacing: 0.5px !important;
+    padding: 10px 0px !important;
+    font-family: 'Open Sans' !important;
+}
+.homePage_yoto .carousel-display-wrapper .yotpo-carousel .carousel-review-body {
+    font-style: normal !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+}
+
+.yotpo-reviews-carousel .carousel-display-wrapper .yotpo-carousel .carousel-review-author{
+    font-size: 14px !important;
+    margin-top: 10px !important;
+}
+.yotpo-reviews-carousel .carousel-display-wrapper .yotpo-carousel .yotpo-icon-star{
+ color: #F36D29 !important;
+ height: 0 !important; 
+}
+.homePage_yoto .yotpo-icon-default-star:before, .homePage_yoto .yotpo-icon-star:before {
+    color: #F36D29 !important;
+}
+.homePage_yoto .yotpo-icon-default-star{ color: #F36D29 !important; }
+.homePage_yoto .carousel-read-more{display:inline-block!important; padding-top:3px !important;width: auto;}
+.homePage_yoto .carousel-display-wrapper .yotpo-carousel .carousel-review-body:before {
+    content: '"';
+}
+.homePage_yoto .carousel-display-wrapper .yotpo-carousel .carousel-review-body:after {
+    content: '"';
+}
+.grecaptcha-badge {
+ display: none !important;
+}
+/* @media only screen and (max-width: 768px) {
+ section.homepage-hero-banner {
+    clip-path: none;
+ } 
+.fomo-notification.fomo-notification-position-bottom-right {
+    right: auto !important;
+    left: auto !important;
+}
+} */
+
+@media only screen and (max-width: 768px) {
+ section.homepage-hero-banner {
+	clip-path: polygon(0 0,100% 0%,100% 94%,0 100%)!important;;
+ } 
+.fomo-notification.fomo-notification-position-bottom-right {
+    right: auto !important;
+    left: auto !important;
+}
+  .homepage-hero-banner .banner .floating-inner-wrapper{
+    position: absolute!important;;
+    background:transparent!important;;
+    top:0px!important;;
+    
+  }
+
+  .homepage-hero-banner #mobile-banner-angle{
+    display:none!important;
+  }
+    
+}
+.__pf_akSezvNb .pf-61_ , .__pf_akSezvNb .pf-69_ , .__pf_akSezvNb .pf-77_ {
+  
+      margin-top: 10px !important;
+    position: absolute;
+    /* top: 0 !important; */
+    bottom: -20px !important;
+    width: 100%;
+  
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+   .__pf_akSezvNb .pf-61_ , .__pf_akSezvNb .pf-69_ , .__pf_akSezvNb .pf-77_ { bottom: -30px !important; }
+}
+/* 03-06-2022 */
+a.custom_top_link {
+   margin-right: 25px;
+   font-weight: 600;
+   font-size: 13px;
+   letter-spacing: 2px;
+}
+@media screen and (max-width: 1139px){
+  a.custom_top_link {display:none;}
+}
+
+.accordion__content.sizing_accordion table { width: 100%; 
+    border: 1px solid #D5D6D7;}
+
+.accordion__content.sizing_accordion td {
+  border: 1px solid #D5D6D7;
+   padding:10px;}
+
+ .accordion__content.sizing_accordion tr:first-child { font-weight: bold }
+
+ .accordion__content.sizing_accordion .shogun-table tbody > tr:first-child { font-weight: normal; }
+
+.ProductForm {
+    margin-top: 10px;
+}
+.rebuy-cart__flyout-installments{margin-bottom:16px;}

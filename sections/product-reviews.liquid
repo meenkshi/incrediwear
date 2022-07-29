@@ -1,0 +1,42 @@
+<div class="container mt-16">
+<h3 class="font-bold text-[16px] uppercase tracking-[2px]">Customer Reviews</h3>
+{%- if product.metafields.spr.reviews contains 'itemprop="reviewCount"' -%}
+{%- assign reviews_count = product.metafields.spr.reviews | split: '<meta itemprop="reviewCount" content="' | last | split: '">' | first | times: 1 -%}
+{%- else -%}
+{%- assign reviews_count = product.metafields.spr.reviews | split: '"reviewCount": "' | last | split: '"' | first | plus: 0 -%}
+{%- endif -%}
+<!-- Yotpo Reviews Widget > snippets > product-tabs.liquid -->
+<div class="yotpo yotpo-main-widget"
+        data-product-id="{{ product.id }}"
+        data-name="{{ product.title | escape }}"
+        data-url="{{ shop.url }}{{ product.url }}"
+        data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+        data-price="{{ variant.price | money_without_currency }}"
+        data-currency=“{{ shop.currency }}”
+        data-description=“{{ product.description | escape }}“>
+</div>
+<!-- End of Yotpo -->
+</div>
+
+<style>
+    .yotpo-main-widget .bottom-line-items{
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media screen and (max-width: 960px ) {
+
+        .yotpo-main-widget .bottom-line-items{
+            flex-direction: row;
+            justify-content: normal;
+            align-items: normal;
+    }
+
+        
+    }
+    .yotpo-label-container {
+        display: none !important;
+    }
+</style>

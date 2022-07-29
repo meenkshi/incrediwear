@@ -1,0 +1,26 @@
+{% if show_outside_usa_popup %}
+<div id="outside-the-usa" class="popup-container" data-popup>
+    {% assign bg_image = settings.popup_background_image %}
+
+    <div class="background-image">
+        {% if bg_image != blank %}
+            <img src="{{ bg_image | img_url: 'master' }}" alt="{{ bg_image.alt }}">
+        {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+    </div>
+
+    <div class="inner-container">
+        <div class="logo">
+            <img src="{{ 'logo.png' | asset_img_url: 'master' }}" alt="Incrediwear Logo">
+        </div>
+
+        <p class="shopping-notice">We see you’re shopping in another country!</p>
+        <p class="checkout">Check out the</p>
+        <p class="find-incrediwear-page">Find Incrediwear page</p>
+        <p class="a-closer-option">to see if there’s a closer option for you.</p>
+
+        <a href="https://incrediwear.com/apps/store-locator" class="button go">GO</a>
+    </div>
+</div>
+{% endif %}

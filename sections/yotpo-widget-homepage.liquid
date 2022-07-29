@@ -1,0 +1,61 @@
+<div class="container">
+<div class="homePage_yoto yotpo yotpo-reviews-carousel" 
+ data-background-color="transparent" 
+ data-mode="top_rated" 
+ data-header-customisation-enabled="1" 
+ data-header-customisation-color="#000" 
+ data-header-customisation-font-size="18" 
+ data-header-customisation-text="OVER 2,000 FIVE STAR REVIEWS" 
+ data-header-customisation-alignment="center"     
+ data-type="site" 
+ data-count="9" 
+ data-show-bottomline="1" 
+ data-autoplay-enabled="1" 
+ data-autoplay-speed="100000" 
+ data-show-navigation="1">&nbsp;</div>
+</div>
+<style>
+    .yotpo-home-widget {
+        background: {{ section.settings.bg_color }};
+        position: relative;
+        margin-bottom:70px;
+    }
+    .yotpo-home-widget .yotpo-reviews-carousel .carousel-display-wrapper .yotpo-carousel .yotpo-icon-star {
+        height:24px;
+    }
+    .yotpo-home-widget::after {
+        content: '';
+        width: 200%;
+        height: 45%;
+        transform: rotate(-2deg);
+        position: absolute;
+        bottom: -100px;
+        left: -100%;
+        z-index: -1;
+        background: {{ section.settings.bg_color }};
+    }
+    .yotpo-home-widget .yotpo-label.yotpo-small-box {
+        display: none;
+    }
+</style>
+
+ {% schema %}
+    {
+        "name": "Yotpo widget",
+        "class": "yotpo-home-widget",
+        "settings": [
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#F5F7F9"
+          }
+        ],
+        "presets": [
+            {
+            "name": "Yotpo widget",
+            "category": "Reviews"
+            }
+        ]
+    }
+{% endschema %}

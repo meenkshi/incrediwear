@@ -1,0 +1,49 @@
+{% assign video = section.settings.video %}
+
+{% if video != blank %}
+<div class="ImageHero {% if section.settings.section_size != 'normal' %}ImageHero--{{ section.settings.section_size }}{% endif %}">
+<video autoplay preload disablepictureinpicture disableremoteplayback playsinline muted loop data-src="{{ video }}">
+  <source src="{{ video }}" type="video/mp4" />
+</video>
+</div>
+{% endif %}
+
+{% schema %}
+{
+"name": "Video",
+"settings": [
+{
+  "type": "select",
+  "id": "section_size",
+  "label": "Section size",
+  "options": [
+    {
+      "value": "small",
+      "label": "Small"
+    },
+    {
+      "value": "normal",
+      "label": "Normal"
+    },
+    {
+      "value": "large",
+      "label": "Large"
+    }
+  ],
+  "default": "large"
+},
+{
+  "type": "text",
+  "id": "video",
+  "label": "Video",
+  "info": "Upload an mp4 video to the 'Files' page in your Shopify admin, and paste the generated URL here. This video will be displayed on the first block."
+}
+],
+"presets": [
+  {
+  "name": "Video",
+  "category": "Video"
+  }
+]
+}
+{% endschema %}

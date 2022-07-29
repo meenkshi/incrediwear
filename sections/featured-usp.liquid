@@ -1,0 +1,64 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-indigo-700">
+    <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:px-8">
+ 
+      <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12  lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
+
+        {% for block in section.blocks %}
+        <div class="w-full">
+          <div>
+            <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10 m-auto lg:m-0">
+              <!-- Heroicon name: outline/inbox -->
+              <img class="w-full" src="{{ block.settings.image | img_url: '200x', scale: 2 }}" alt="{{ block.settings.image.alt }}" loading="lazy">
+            </span>
+          </div>
+          <div class="mt-10 text-center lg:text-left">
+            <h3 class="text-lg font-semibold">{{block.settings.title}}</h3>
+            <p class="text-base">{{block.settings.sub_title}}</p>
+          </div>
+        </div>
+        {% endfor %}
+     
+      </div>
+    </div>
+  </div>
+
+  
+{% schema %}
+{
+"name": "Featured USP List",
+"max_blocks": 4,
+"settings": [
+],
+"blocks": [
+  {
+    "type": "usp",
+    "name": "Usp",
+    "settings": [
+        {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Heading"
+        },
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Icon",
+        "info": "40 x 40 .png recommended"
+        }
+    ]
+  }
+],
+  "presets": [
+    {
+      "category": "USP",
+      "name": "Featured USP List"
+    }
+  ] 
+}
+{% endschema %}

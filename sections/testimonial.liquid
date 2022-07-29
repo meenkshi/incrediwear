@@ -1,0 +1,107 @@
+<div class="custom_testimonial">
+ <div class="custom_testimonial_inner">
+   <div class="timg">
+     <img src="https://cdn.shopify.com/s/files/1/1165/9124/files/testimonial_VBell-1.png?v=1646300603" alt="Vonn Bell, NFL Safety" class="ps_img">
+     </div> 
+   	<div class="custom_testimonial_img">
+     <div class="tcontent">     
+     <p>“Incrediwear is the best product I’ve used for managing pain and soreness and keeping my body fresh and ready to go during the season.”</p>
+     <p class="testimonial_name">Vonn Bell, NFL Safety</p>
+       <span class="testimonial_star">
+          <img src="https://cdn.shopify.com/s/files/1/1165/9124/files/star-review-1.png?v=1646300345" alt="Vonn Bell, NFL Safety" class="ps_star">
+       </span>
+     </div>  
+   </div> 
+ </div>  
+</div>
+<style>
+.tcontent{margin-top:20px;}
+.custom_testimonial {
+    text-align: center;
+    width: 33.33%;
+    margin: 2rem auto;
+    margin-bottom: 0px;
+    margin-top: 2.5em;
+}
+.custom_testimonial .custom_testimonial_inner {
+    position: relative;
+    padding-top: 8rem;
+} 
+.custom_testimonial .timg{
+   position: absolute;
+   top: 0;
+   right: 0;
+   left: 0;
+} 
+.custom_testimonial_inner .ps_img {
+    border-radius: 50%;
+    border: 3px solid #ff6b09;
+    width:150px;
+    height:150px;
+    margin: 0 auto;
+}  
+  
+.custom_testimonial .custom_testimonial_img {
+    padding: 4rem 2rem 2rem;
+  padding-bottom: 1em;
+ }
+
+.custom_testimonial_img h2 {
+    font-size: 48px;
+    font-weight: 500;
+    font-family: Times New Roman;    
+}
+.custom_testimonial_img p {
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+}
+.testimonial_name{
+  padding-top:10px;
+  padding-bottom:5px;
+  }
+.testimonial_star{
+  display:block;
+}
+.testimonial_star img{
+  width:165px;   
+  margin: 0 auto;
+}
+@media only screen and (max-width: 1024px) {
+  .custom_testimonial {
+    width: 50%;
+  }
+}  
+@media only screen and (max-width: 767px) {
+  .custom_testimonial {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .custom_testimonial_img h2 {
+    font-size: 35px;
+    font-weight: 500;
+    font-family: Times New Roman;
+  }
+}  
+  
+  
+</style>
+{% schema %}
+  {
+    "name": "Home Testimonial",
+    "settings": [],
+	"presets": [
+    {
+      "category": "Custom",
+      "name": "Home Testimonial"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

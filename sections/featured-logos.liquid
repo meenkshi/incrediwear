@@ -1,0 +1,61 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="custom-bg-white bg-white mx-auto pb-12 lg:pb-24 pt-[0px] px-4 sm:px-6 lg:px-8 lg:pt-24">
+      <p class="text-center text-2xl font-semibold uppercase text-black tracking-wider">{{ section.settings.title }}</p>
+      <div class="mx-auto gap-x-6 gap-y-6 grid grid-cols-3 mt-6 lg:flex gap-0.5 lg:mt-8 lg:justify-around max-w-[1110px]">
+        {%- for block in section.blocks -%}
+            {% if block.settings.image %}
+                <div class="flex justify-center">
+                    <img src="{{ block.settings.image  | img_url: '200x', scale: 2 }}" alt="{{ block.settings.logo-image.alt }}" loading="lazy" class="m-auto w-auto max-h-[30px]">
+                </div>
+            {% endif %}
+        {%- endfor -%}
+      </div>
+    </div>
+
+
+{% schema %}
+{
+  "name": "Featured Logo List",
+  "max_blocks": 9,
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Logo",
+      "name": "Featured Logo List",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

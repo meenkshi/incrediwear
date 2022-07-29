@@ -1,0 +1,10 @@
+{% assign AppStatus = true %}
+{% if AppStatus %}
+<input type='hidden' id='appify_cc_position' value='1' /><style>#appify-cookie-bar{-webkit-animation: slide-down .7s ease-out;-moz-animation: slide-down .7s ease-out;}@-webkit-keyframes slide-down {0% { opacity: 0; -webkit-transform: translateY(-100%); }100% { opacity: 1; -webkit-transform: translateY(0); }}@-moz-keyframes slide-down {0% { opacity: 0; -moz-transform: translateY(-100%); }100% { opacity: 1; -moz-transform: translateY(0); }}</style><div id="appify-cookie-bar" style='padding:8px 10px;width:100%;display: none;position: fixed;top:auto !important;bottom: 0px;z-index: 999999999;background-color:#000000;color:#ffffff;'> <div style="display:inline;VERTICAL-ALIGN: sub;">This website uses cookies to ensure you get the best experience on our website</div>
+        <button id="appifyCookie" style='color:#ff6a13;background-color:#000000;border: 2px solid #ff6a13;border-radius:0.5px;min-height:34px;height: 34px;float: right;margin-right: 30px;'onclick="appifyAcceptCookies(30);">
+            <span>Got it</span>
+        </button>
+        </div><script src='/apps/appifycc/assets/js/rcc.js' type='text/javascript'></script>
+
+{% endif %}
+

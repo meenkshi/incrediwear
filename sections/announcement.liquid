@@ -1,0 +1,135 @@
+{%- capture flickity_options -%}
+{
+  "prevNextButtons": false,
+  "pageDots": false,
+  "wrapAround": true,
+  "cellAlign": "center",
+  "dragThreshold": 8,
+  "groupCells": false,
+  "autoPlay": 5000,
+  "draggable": true,
+  "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
+}
+{%- endcapture -%}
+
+{%- if section.settings.enable_bar -%}
+  {%- unless section.settings.home_page_only and template != 'index' -%}
+    <section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="announcement-bar">
+      <div class="AnnouncementBar">
+        <announcement-bar class="AnnouncementBar__Wrapper" {% if section.settings.enable_slider and section.blocks.size > 1 %}data-flickity-config='{{ flickity_options }}'{% endif %}>
+          {% for block in section.blocks %}
+            <p id="block-{{ block.id }}" class="AnnouncementBar__Content Heading Carousel__Cell {% if forloop.first %}is-selected{% endif %}" data-slide-index="{{ forloop.index0 }}">
+              {%- if block.settings.link -%}
+                <a href="{{ block.settings.link }}">{{ block.settings.content | escape }}</a>
+              {%- else -%}
+                {{ block.settings.content | escape }}
+              {%- endif -%}
+            </p>
+          {% endfor %}
+        </announcement-bar>
+      </div>
+    </section>
+
+    <style>
+      #section-{{ section.id }} {
+        background: {{ section.settings.background }};
+        color: {{ section.settings.text_color }};
+      }
+      
+      {% if section.settings.enable_slider and section.blocks.size > 1 %}
+        .AnnouncementBar__Content {
+          display: none;
+        }
+
+        .flickity-enabled .AnnouncementBar__Content {
+          display: block;
+        }
+      {% endif %}
+    </style>
+
+    <script>
+      document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-announcement').offsetHeight + 'px');
+    </script>
+  {%- endunless -%}
+{%- endif -%}
+
+{% javascript %}
+class AnnouncementBar extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log('AnnouncementBar');
+      let flktyElem = document.querySelector(".AnnouncementBar__Wrapper[data-flickity-config]")
+
+      if(flktyElem) {
+        let flktySettings = Object.assign(JSON.parse(flktyElem.getAttribute('data-flickity-config')));
+        var flkty = new Flickity( '.AnnouncementBar__Wrapper', flktySettings);
+      }
+    });
+  }
+}
+
+
+
+customElements.define('announcement-bar', AnnouncementBar);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_bar",
+      "label": "Enable bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable slider",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Announcement Bar content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Text",
+          "default": "Announce something here"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

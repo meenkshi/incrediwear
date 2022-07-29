@@ -1,0 +1,55 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+{%- if section.blocks.size > 0 -%}
+<div class="bg-indigo-700">
+    <div class="max-w-[500px] md:max-w-5xl lg:max-w-7xl mx-auto container pt-0 sm:pt-[44px] pb-[30px] sm:pb-[80px]">
+      <div class="flex flex-col sm:flex-row">
+        {% for block in section.blocks %}
+        <div class="w-full flex sm:flex-col items-center mb-[20px] sm:mb-0">
+          <div class="w-[45px] h-[45px] sm:w-[70px] sm:h-[70px] mr-[20px] sm:mr-0">
+            <span class="w-full">
+              <!-- Heroicon name: outline/inbox -->
+              <img class="w-full" src="{{ block.settings.image | img_url: '70x70' }}" alt="{{ block.settings.image.alt }}" loading="lazy">
+            </span>
+          </div>
+          <div class="mt-0 sm:mt-[23px] text-center">
+            <h3 class="text-[16px] md:text-[18px] font-semibold pb-0 text-[#353133]">{{block.settings.title}}</h3>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {%- endif -%} 
+{% schema %}
+{
+"name": "PDP Featured USP List",
+"max_blocks": 4,
+"settings": [
+],
+"blocks": [
+  {
+    "type": "usp",
+    "name": "Usp",
+    "settings": [
+        {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+        },
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Icon",
+        "info": "70 x 70 .png recommended"
+        }
+    ]
+  }
+],
+  "presets": [
+    {
+      "category": "USP",
+      "name": "PDP Featured USP List"
+    }
+  ] 
+}
+{% endschema %}

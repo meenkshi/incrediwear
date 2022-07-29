@@ -1,0 +1,203 @@
+{%- capture section_settings -%}
+{
+  "productId": {{ product.id | json }},
+  "useRecommendations": {% if product.metafields.sf_related_products.enabled == 1 %}false{% else %}true{% endif %},
+  "recommendationsCount": 12
+}
+{%- endcapture -%}
+
+{%- capture flickity_options -%}
+{
+  "prevNextButtons": true,
+  "pageDots": false,
+  "wrapAround": false,
+  "contain": true,
+  "cellAlign": "center",
+  "watchCSS": true,
+  "dragThreshold": 8,
+  "groupCells": true,
+  "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
+}
+{%- endcapture -%}
+
+{%- if section.settings.show_product_recommendations -%}
+  <section class="Section Section--spacingNormal section-recommended-products " data-section-id="{{ section.id }}" data-section-type="product-recommendations" data-section-settings='{{ section_settings }}'>
+    {%- if section.settings.heading != blank -%}
+      <header class="SectionHeader SectionHeader--center">
+        <div class="Container">
+          <h3 class="SectionHeader__Heading Heading u-h3">{{ section.settings.heading | escape }}</h3>
+        </div>
+      </header>
+    {%- endif -%}
+
+    <div class="ProductRecommendations">
+      {%- if recommendations.performed or product.metafields.sf_related_products.enabled == 1 -%}
+        <div class="ProductListWrapper">
+          <div class="ProductList ProductList--carousel Carousel" data-flickity-config='{{ flickity_options }}'>
+            {%- comment -%}
+            If the merchant is explicitly using SuperFields, we use the hand-picked related products, otherwise we
+            switch to the Shopify automatic recommendation
+            {%- endcomment -%}
+
+            {%- if product.metafields.sf_related_products.enabled == 1 -%}
+          
+              {%- for i in (1..4) -%}
+                {%- assign related_product_option = 'product_' | append: i -%}
+                {%- assign related_product = all_products[product.metafields.sf_related_products[related_product_option]] -%}
+
+                {%- unless related_product.empty? -%}
+                  <div class="Carousel__Cell">
+                    {% render 'product-item', product: related_product, show_product_info: section.settings.show_product_info, show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, show_labels: true %}
+                  </div>
+                {%- endunless -%}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for product in recommendations.products -%}
+                {%- if product.handle == "routeins" -%} {%- continue -%} {%- endif -%}
+                <div class="Carousel__Cell">
+                  {% render 'product-item', product: product, show_product_info: section.settings.show_product_info, show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, show_labels: true %}
+                </div>
+              {%- else -%}
+                {%- comment -%}Hide the section if there is no recommendations to show{%- endcomment -%}
+                <style>
+                  #shopify-section-{{ section.id }} {
+                    display: none;
+                  }
+                </style>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+<style>
+  .ProductRecommendations .flickity-prev-next-button{
+    box-shadow: none;
+    background: none;
+    color: #AEADAD;
+    transform: none;
+    transition: none;
+    overflow: visible;
+  }
+  .ProductRecommendations .flickity-prev-next-button:after{
+    content: '';
+    display: block;
+    border-top: 2px solid #AEADAD;
+    border-right: 2px solid #AEADAD;
+    width: 25px;
+    height: 25px;
+    transform: rotate(45deg)
+  }
+
+  .ProductRecommendations .flickity-prev-next-button.previous:after{
+    transform: rotate(-135deg)
+  }
+
+  .ProductRecommendations .flickity-prev-next-button svg{
+    display: none;
+  }
+  .section-recommended-products .SectionHeader__Heading {
+    font-size: 18px !important;
+    padding-bottom: 0;
+    text-align: left;
+    padding-left: 40px;
+  }
+  .section-recommended-products .SectionHeader{
+    margin-bottom: 32px !important;
+  }
+  .section-recommended-products .ProductItem__Info{
+    text-align: left;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .section-recommended-products .ProductItem__Title {
+    padding-bottom: 0;
+  }
+  .section-recommended-products .standalone-bottomline{
+    margin-bottom: 0 !important;
+  }
+  .section-recommended-products .ProductItem__Info a{
+    display: flex;
+    margin-bottom: 12px;
+    order: -1;
+  }
+  .section-recommended-products .ProductItem__PriceList {
+    padding-bottom: 20px;
+  }
+
+  .section-recommended-products .ProductItem__ImageWrapper{
+    background: #f5f7f9;
+  }
+  .section-recommended-products .ProductList--carousel .Carousel__Cell{
+    min-height: 100%;
+    display: flex;
+  }
+  .section-recommended-products .ProductItem {
+    width: 100%;
+  }
+  .section-recommended-products .ProductItem__Wrapper{
+    height: 100%;
+  }
+  .section-recommended-products .ProductItem__ImageWrapper .AspectRatio{
+    width: 100%;
+  }
+  .section-recommended-products .ProductItem__ImageWrapper{
+    aspect-ratio: 9/13;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: 1007px) {
+    .ProductList--carousel .Carousel__Cell:first-child{
+      margin-left: 0;
+    }
+    .section-recommended-products .SectionHeader__Heading{
+      padding-left: 0;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "class": "shopify-section--bordered",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_product_recommendations",
+      "label": "Show dynamic recommendations",
+      "info": "Dynamic recommendations change and improve with time. [Learn more](https://help.shopify.com/en/themes/development/recommended-products)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You may also like"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_info",
+      "label": "Show product info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "label": "Show color swatch",
+      "info": "Some colors appear white? [Learn more](http://support.maestrooo.com/article/80-product-uploading-custom-color-for-color-swatch).",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

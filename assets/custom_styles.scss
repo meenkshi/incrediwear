@@ -1,0 +1,90 @@
+body {
+    div#popups-container {
+        display: none;
+
+        div.popup-container {
+            display: none;
+        }
+    }
+
+    // Outside the USA Popup
+    #outside-the-usa,
+    #outside-the-usa--clone {
+        max-width: 600px;
+
+        position: relative;
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+
+            img, svg {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        .inner-container {
+            text-align: center;
+            color: #FFF;
+            padding: 1em;
+            z-index: 2;
+
+            .logo {
+                text-align: center;
+                margin: 0 auto 2em;
+                max-width: 280px;
+
+                img, svg {
+                    width: 100%;
+                }
+            }
+
+            .shopping-notice {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .checkout {
+                font-family: 'Helvetica Neue', sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .find-incrediwear-page {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 50px;
+                font-weight: bold;
+            }
+
+            .a-closer-option {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .button.go {
+                background-color: #C35312;
+                color: #FFF;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 25px;
+                font-weight: bold;
+                border: none;
+                padding: 0.75em 1.75em;
+                margin: 1em 0;
+                display: inline-block;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            height: 600px;
+        }
+    }
+}

@@ -1,0 +1,85 @@
+.ambassador__wrapper .flickity-prev-next-button svg {
+  display: none;
+}
+.ambassador__wrapper .flickity-prev-next-button.previous:after {
+  transform: rotate(-135deg);
+}
+.ambassador__wrapper .flickity-prev-next-button:after {
+  content: "";
+  display: block;
+  border-top: 2px solid #aeadad;
+  border-right: 2px solid #aeadad;
+  width: 25px;
+  height: 25px;
+  transform: rotate(45deg);
+}
+.ambassador__wrapper .flickity-prev-next-button {
+  box-shadow: none;
+  background: none;
+  color: #aeadad;
+}
+.ambassador__wrapper .flickity-prev-next-button:hover {
+  transition: none;
+}
+.ambassador__wrapper .flickity-prev-next-button.next:hover svg,
+.ambassador__wrapper .flickity-prev-next-button.previous:hover svg {
+  animation: none;
+}
+.ambassador__wrapper .flickity-prev-next-button.previous {
+  top: 50%;
+  left: 15px;
+  overflow: visible;
+}
+.ambassador__wrapper .flickity-prev-next-button.next {
+  top: 50%;
+  right: 15px;
+}
+.ambassador__wrapper .flickity-page-dots .dot {
+  width: 24px;
+  height: 0px;
+  border: 2px solid #aeadad;
+  border-radius: 0 !important;
+}
+.ambassador__wrapper .flickity-page-dots .dot.is-selected {
+  border: 2px solid #ff6a13;
+}
+
+@media (max-width: 1280px) {
+  .ambassador__wrapper .flickity-prev-next-button.previous {
+    left: 30px;
+  }
+  .ambassador__wrapper .flickity-prev-next-button.next {
+    right: 0px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ambassador__wrapper .flickity-page-dots {
+    bottom: 14px;
+  }
+  .ambassador__wrapper .flickity-page-dots .dot {
+    border: 2px solid #aeadad;
+  }
+  .ambassador__wrapper .flickity-page-dots .dot.is-selected {
+    border: 2px solid #ff6a13;
+  }
+  .ambassador__wrapper .flickity-prev-next-button.next {
+    top: 40%;
+    right: -18px;
+  }
+  .ambassador__wrapper .flickity-prev-next-button.previous {
+    top: 40%;
+    left: 15px;
+  }
+  .ambassador__wrapper::after {
+    height: 8%;
+    transform: rotate(-3deg);
+  }
+  .ambassador__wrapper .flickity-prev-next-button {
+    transform: scale(1);
+  }
+  .ambassador__wrapper .flickity-prev-next-button:after {
+    width: 13px;
+    height: 13px;
+  }
+}

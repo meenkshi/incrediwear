@@ -1,0 +1,542 @@
+{% liquid
+  assign showTopSection = section.settings.show_top_section
+  assign desktopImage = section.settings.image
+  assign mobileImage = section.settings.mobile_image
+  assign mainTitle = section.settings.title
+  assign subTitle = section.settings.subheading
+  assign buttonText = section.settings.button_text
+%}
+
+<home-hero-banner>
+<section class="homepage-hero-banner">
+
+  {% if showTopSection %}
+	  <div class="feature-slider is-hidden">
+
+      {%- for block in section.blocks -%}
+        <div class="content">
+          <div class="icon">
+            {{ block.settings.icon }}
+          </div>
+          <div class="text">
+
+            <p class="feature-title">{{block.settings.main_feature_text }}</p>
+
+            {% if block.settings.sub_feature_text %}
+            <p class="feature-subtitle">{{block.settings.sub_feature_text }}</p>
+            {% endif %}
+          </div>
+
+        </div>
+
+      {% unless forloop.last %}
+      <div class="divider-wrapper">
+        {% render 'icon-divider' %}
+      </div>
+      {% endunless %}
+
+      {%- endfor -%}
+
+	  </div> <!-- END .Slideshow -->
+  {% endif %}
+
+  <div class="banner">
+    <div class="floating-inner-wrapper">
+      <div class="text-content">
+        <div class="wrapper">
+          <h2 class="title">{{ mainTitle | escape }}</h2>
+          <div class="subtitle">{{ subTitle }}</div>
+          <div class="btn-wrapper">
+            <a href="{{ section.settings.button_link }}" class="Button Button--primary">{{ section.settings.button_text | escape }}</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- END .floating-inner-banner -->
+
+		{% if desktopImage %}
+      <image
+        srcset="
+          {{ desktopImage | img_url: '600x' }} 600w,
+          {{ desktopImage | img_url: '720x' }} 720w,
+          {{ desktopImage | img_url: '1000x' }} 1000w,
+          {{ desktopImage | img_url: '1250x' }} 1250w,
+          {{ desktopImage | img_url: '1500x' }} 1500w,
+          {{ desktopImage | img_url: '2000x' }} 2000w
+        "
+        src="{{ desktopImage | img_url: '2000x' }}"
+        src-placeholder="{{  desktopImage | img_url: '50x' }}"
+        alt="{{ desktopImage.alt }}"
+        class="desktop-image"
+      >
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'svg-placeholder desktop' }}
+    {% endif %}
+
+     {% if mobileImage != blank %}
+    <image
+        srcset="
+          {{ mobileImage | img_url: '600x' }} 600w,
+          {{ mobileImage | img_url: '720x' }} 720w,
+          {{ mobileImage | img_url: '1000x' }} 1000w,
+          {{ mobileImage | img_url: '1250x' }} 1250w,
+          {{ mobileImage | img_url: '1500x' }} 1500w
+        "
+        src="{{ mobileImage | img_url: '1500x' }}"
+        src-placeholder="{{  mobileImage | img_url: '50x' }}"
+        alt="{{ mobileImage.alt }}"
+        class="mobile-image"
+      >
+      {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'svg-placeholder mobile' }}
+    {% endif %}
+
+  </div><!-- END .homepage-hero-banner -->
+
+  {% render 'icon-mobile-banner-angle' %}
+
+<span id="section-{{ section.id }}-end" class="Anchor"></span>
+</section>
+</home-hero-banner>
+
+{{ 'flickity.min.js' | asset_url | script_tag }}
+
+{% javascript %}
+class HomeHeroBanner extends HTMLElement {
+  constructor() {
+      super();
+  }
+
+  connectedCallback() {
+    document.addEventListener('DOMContentLoaded', function () {
+      // Remove dividers from Flickity when screen is under 600px
+      let viewportWidth = window.innerWidth;
+      let dividers = document.querySelectorAll('.divider-wrapper');
+      let dividersArr = Array.from(dividers);
+
+      if (viewportWidth < 768) {
+        dividersArr.forEach((elem) => {
+          elem.parentNode.removeChild(elem);
+        });
+      }
+
+      //code to fade in Flickity to prevent FOUC
+      var carousel = document.querySelector('.feature-slider');
+      carousel.classList.remove('is-hidden');
+      // trigger redraw for transition
+      carousel.offsetHeight;
+      // init Flickity
+      var flkty = new Flickity(carousel, {
+        // options
+        setGallerySize: true,
+        adaptiveHeight: false,
+        prevNextButtons: false,
+        pageDots: true,
+        wrapAround: true,
+        dragThreshold: 15,
+        autoPlay: false,
+        watchCSS: true,
+        freeScroll: false,
+      });
+    });
+  }
+}
+
+customElements.define('home-hero-banner', HomeHeroBanner);
+
+{% endjavascript %}
+
+<style>
+.homepage-hero-banner {
+  margin: 0 0 40px;
+  position:relative;
+}
+.homepage-hero-banner::after {
+  content: "";
+  background: linear-gradient(56.18deg, #00000080 100.02%, #00000050 65.04%, #47474710 7.6%);
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+.homepage-hero-banner .feature-slider {
+  background: #f2f2f2;
+  opacity: 1;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  z-index: 1;
+}
+
+.homepage-hero-banner .feature-slider .content {
+  height: 100px;
+  width: 100%; /* full width */
+  height: 100px; /* height of carousel */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.homepage-hero-banner .feature-slider .content .icon svg {
+  width: 25px;
+  height: auto;
+}
+
+.homepage-hero-banner .feature-slider .divider-wrapper {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-hero-banner .feature-slider .divider-wrapper .svg-divider {
+  max-width: 50px;
+  height: auto;
+}
+
+.homepage-hero-banner .feature-slider .content .text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.homepage-hero-banner .feature-slider .content .text .feature-title {
+  color: #353133;
+  padding-bottom: 0;
+  line-height: 1;
+}
+
+.homepage-hero-banner .feature-slider .content .text .feature-subtitle {
+  color: #BBBBBB;
+  padding-bottom: 0;
+}
+
+#section-{{section.id}}.Heading,
+#section-{{section.id}}.flickity-page-dots {
+	color: {{section.settings.text_color}};
+}
+
+#section-{{section.id}}.Button {
+	color: {{section.settings.button_color}};
+	border-color: {{section.settings.button_background}};
+}
+
+#section-{{section.id}}.Button::before {
+	background-color: {{section.settings.button_background}};
+}
+
+.homepage-hero-banner .banner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 600px;
+  max-height: 600px;
+}
+
+.homepage-hero-banner #mobile-banner-angle{
+  display: none;
+}
+
+.homepage-hero-banner .banner .floating-inner-wrapper {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 100px 80px;
+  max-height: 600px;
+  z-index: 1;
+}
+
+.homepage-hero-banner .banner .floating-inner-wrapper .text-content {
+  z-index: 100;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.homepage-hero-banner .banner .floating-inner-wrapper .text-content .wrapper {
+  max-width: 400px;
+}
+
+.homepage-hero-banner .banner .text-content .title {
+  color: #ff6b09;
+  font-size: 56px;
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.1em;
+  padding-bottom: 17px;
+}
+
+.homepage-hero-banner .banner .text-content .subtitle {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin-bottom: 30px;
+}
+
+.homepage-hero-banner .banner .text-content .btn-wrap {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin-bottom: 30px;
+}
+
+.homepage-hero-banner .banner .desktop-image,
+.homepage-hero-banner .banner .mobile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.homepage-hero-banner .banner .mobile-image {
+  display: none;
+}
+
+/* enable Flickity by default */
+.homepage-hero-banner .feature-slider:after {
+  content: 'flickity';
+  display: none; /* hide :after */
+}
+
+@media screen and ( max-width: 900px ) {
+  .homepage-hero-banner .feature-slider .content {
+    padding: 10px;
+  }
+}
+
+/* disable Flickity for large devices */
+@media screen and ( min-width: 769px ) {
+  .homepage-hero-banner .feature-slider:after {
+    content: '';
+  }
+}
+
+@media screen and ( max-width: 768px ) {
+  .homepage-hero-banner .feature-slider.is-hidden {
+    display: none;
+  }
+  .homepage-hero-banner::after {
+    content: none;
+  }
+
+  /* FOUC ISSUE */
+  .homepage-hero-banner .feature-slider {
+    background: #f2f2f2;
+    opacity: 0;
+  }
+
+  .homepage-hero-banner .feature-slider.flickity-enabled {
+    opacity: 1;
+  }
+  /* END FOUC ISSUE */
+
+  .homepage-hero-banner .banner .desktop-image {
+    display: none;
+  }
+
+  .homepage-hero-banner .banner .mobile-image {
+    display: block;
+  }
+
+  .homepage-hero-banner .banner .text-content .title {
+    color: #ff6b09;
+    font-size: 32px;
+    font-style: italic;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin-bottom: 30px;
+  }
+
+  .homepage-hero-banner .banner .floating-inner-wrapper {
+    padding: 40px;
+    max-height: 100%;
+    position: relative;
+    background: #000000;
+  }
+
+  .homepage-hero-banner .banner {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .homepage-hero-banner #mobile-banner-angle {
+    display: block;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+  }
+
+  .homepage-hero-banner #mobile-banner-angle rect {
+    width: 100%;
+    height: auto;
+  }
+
+  .homepage-hero-banner .feature-slider {
+    display: block;
+  }
+
+  .homepage-hero-banner .feature-slider .content {
+    padding: 20px 20px 0 20px;
+    height: 72px;
+  }
+
+  .homepage-hero-banner .feature-slider .divider-wrapper {
+    display: none;
+  }
+
+  .flickity-page-dots {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .flickity-page-dots .dot {
+    background: #D7D6D6;
+    width: 7px;
+    height: 7px;
+  }
+
+  .flickity-page-dots .dot.is-selected {
+    background: #AEADAD;
+    border-color: #AEADAD;
+  }
+
+  .homepage-hero-banner .banner .floating-inner-wrapper .text-content .wrapper {
+    max-width: 100%;
+  }
+
+  .homepage-hero-banner .banner .text-content .title,
+  .homepage-hero-banner .banner .text-content .subtitle,
+  .homepage-hero-banner .banner .text-content .btn-wrapper {
+    text-align: center;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Homepage - Hero Banner",
+  "class": "shopify-section--home-hero-banner",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top section settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_section",
+      "label": "Show section at top above banner.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Hero section settings"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1800 x 800px .jpg recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "750 x 1100px .jpg recommended. If none is set, desktop image will be cropped."
+    },
+    {
+      "type": "checkbox",
+      "id": "apply_overlay",
+      "label": "Apply overlay over image.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main hero text"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading hero text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slider",
+      "name": "Feature Points",
+      "settings": [
+        {
+          "type": "text",
+          "id": "main_feature_text",
+          "label": "Main feature text",
+          "default": "Put the main text here"
+        },
+        {
+          "type": "text",
+          "id": "sub_feature_text",
+          "label": "Sub feature text",
+          "default": "Put the sub text here"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Feature Icon",
+          "default": "<span class='iconify' data-icon='bi:suit-heart-fill'></span>",
+          "info": "Add an icon from the Iconify Bootstrap package https://icon-sets.iconify.design/bi/"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Homepage Hero Banner",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "slider"
+        },
+        {
+          "type": "slider"
+        },
+        {
+          "type": "slider"
+        }
+      ]
+    }
+  ]
+}{% endschema %}
